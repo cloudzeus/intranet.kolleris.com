@@ -1,0 +1,7 @@
+{
+  "host": "HOST",
+
+  "mongo_uri": "MONGODB_URI",
+  "jwt_key": "kolleris_jwt_private_key"
+
+}

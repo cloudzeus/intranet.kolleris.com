@@ -1,0 +1,6 @@
+{
+  "info_email": "tapiwa.gondo@watson.is",
+  "mongo_uri": "mongodb://localhost/kollerisShoppingCart",
+  "jwt_key": "kollerisV1"
+
+}

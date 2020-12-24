@@ -1,0 +1,14 @@
+{
+  "mail": {
+    "api_key": "4481156aab29c205dce6106dde356838",
+    "api_secret": "5caee8f73c724a3604f42a44ecc24ca9"
+  },
+  "host": "http://localhost:3000",
+  "mongo_uri": "mongodb://localhost/tupublish_tests",
+  "info_email": "tapiwa.gondo@watson.is",
+  "jwt_key": "tupublishv1",
+  "cloud_name": "tupublish",
+  "cloud_api_key": "637576988398231",
+  "cloud_api_secret": "zzsCJZCJNW-9OcchrTiWA-BBt-I",
+  "cloud_uri": "CLOUDINARY_URL=cloudinary://637576988398231:zzsCJZCJNW-9OcchrTiWA-BBt-I@tupublish"
+}
