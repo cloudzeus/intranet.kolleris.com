@@ -1,6 +1,7 @@
 {
   "info_email": "",
-  "host": "",
+  "host": "https://intranet.kolleris.com",
+    "mongo_uri": "mongodb://giannis:Prof%4015%401f1femsk@cloudzeus.eu:5652/karvoutzis?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false1",
   "jwt_key": "kollerisV1"
 
 }
