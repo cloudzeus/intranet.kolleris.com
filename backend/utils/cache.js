@@ -17,14 +17,14 @@ const paginate = (value, size = 30, page = 1, query = '') => {
 };
 
 exports.setValue = async (key, value, size, page, query) => {
-    // await cache.set(key, value);
+    await cache.set(key, value);
     return paginate(value, size, page, query);
 };
 
 exports.getValue = async (key, size, page, query) => {
     try {
-        // const data = await cache.get(key);
-        // if (!data) return null;
+        const data = await cache.get(key);
+        if (!data) return null;
         return paginate(data, size, page, query);
     } catch (error) {
         console.log('error', error);

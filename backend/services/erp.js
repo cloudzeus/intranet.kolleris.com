@@ -25,7 +25,7 @@ exports.erpAuth = () => {
             console.log('Error', response.originalError);
             return null;
         }
-        return (response.data = response.data.data);
+        return (response.data = response.data);
     });
 };
 
