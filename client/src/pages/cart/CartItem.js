@@ -11,10 +11,10 @@ const CartItem = ({product}) => {
     return ( 
         <div className="row no-gutters py-2">
             <div className="col-sm-2 p-2">
-                <img
+                {/* <img
                 alt={product.name}
                 style={{margin: "0 auto", maxHeight: "50px"}} 
-                src={product.photo} className="img-fluid d-block"/>
+                src={product.photo} className="img-fluid d-block"/> */}
             </div>
             <div className="col-sm-4 p-2">
                 <h5 className="mb-1">{product.name}</h5>

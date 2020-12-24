@@ -12,13 +12,9 @@ const ProductItem = ({ product }) => {
         return !!cartItems.find((item) => item.id === product.id);
     };
 
-    const parsedProductName = product.PRODUCTNAME_NAME.split(' ')
-        .slice(1, -1)
-        .join(' ');
-
     return (
         <div className="card card-body">
-            <img
+            {/* <img
                 style={{
                     display: 'block',
                     margin: '0 auto 10px',
@@ -27,8 +23,8 @@ const ProductItem = ({ product }) => {
                 className="img-fluid"
                 src={product.photo + '?v=' + product.id}
                 alt=""
-            />
-            <p>{parsedProductName}</p>
+            /> */}
+            <p>{product.PRODUCTNAME_NAME}</p>
             <h3 className="text-left">
                 {formatNumber(parseFloat(product.PRICER))}
             </h3>
@@ -48,7 +44,13 @@ const ProductItem = ({ product }) => {
 
                 {!isInCart(product) && (
                     <button
-                        onClick={() => addProduct(product)}
+                        onClick={() =>
+                            addProduct({
+                                name: product.PRODUCTNAME_NAME,
+                                price: product.PRICER,
+                                id: product.MTRL,
+                            })
+                        }
                         className="btn btn-primary btn-sm"
                     >
                         Add to cart

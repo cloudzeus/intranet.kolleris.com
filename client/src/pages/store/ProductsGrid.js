@@ -21,7 +21,7 @@ const ProductsGrid = () => {
                 <div className="col-sm-8">
                     <div className="py-3">
                         {' '}
-                        {page} of {numberOfPages} page(s)
+                        {page} of {numberOfPages || 1} page(s)
                     </div>
                 </div>
                 <div className="col-sm-4">
