@@ -8,6 +8,7 @@ const paginate = (value, size = 30, page = 1, query = '') => {
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
     let data = value.slice(startIndex, endIndex);
+    data = data.map((product) => ({ ...product, id: product.MTRL }));
     console.log('qqqqq', query);
     data = data.filter((data) =>
         new RegExp(query, 'gi').test(data.PRODUCTNAME_NAME)
