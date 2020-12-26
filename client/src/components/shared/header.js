@@ -12,13 +12,14 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
+            <h3 className="d-inline text-white">Kolleris</h3>
             <Link to="/">Store</Link>
-            <Link to="/about">About</Link>
-            <Link to="/cart">
+            {/* <Link to="/about">About</Link> */}
+            <Link to="/cart/1/show" className="text-white">
                 {' '}
                 <CartIcon /> Cart ({itemCount})
             </Link>
-            <button onClick={logOut} className="btn btn-link">
+            <button onClick={logOut} className="btn btn-link text-white">
                 {' '}
                 {user?.email} - Logout{' '}
             </button>
