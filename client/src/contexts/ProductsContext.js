@@ -28,9 +28,9 @@ const ProductsContextProvider = ({ children }) => {
         setPage(page + 1);
     };
 
-    useEffect(() => {
-        request(page, PAGE_SIZE, '');
-    }, []);
+    // useEffect(() => {
+    //     request(page, PAGE_SIZE, '');
+    // }, []);
 
     const handleSearchSubmit = () => {
         if (query.length === 0) return data || [];
@@ -77,7 +77,7 @@ const ProductsContextProvider = ({ children }) => {
                 query,
                 handleQueryChange: setQuery,
                 handleClearQuery,
-                handleSearchSubmit
+                handleSearchSubmit,
             }}
         >
             {children}

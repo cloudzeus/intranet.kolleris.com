@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
         return res.status(500).send('Failed to get products from ERP');
     products = await cache.setValue(CACHE_KEY, products, size, page, q);
 
+    res.setHeader('X-Total-Count', products.total);
     return res.send(products);
 });
 

@@ -20,8 +20,8 @@ const Layout = ({ title, description, children }) => {
                     content={description || 'Kolleric Shopping Cart'}
                 />
             </Helmet>
-            <Header />
-            <main className="container">{children}</main>
+            {/* <Header /> */}
+            <main className="">{children}</main>
             <Footer />
         </>
     );

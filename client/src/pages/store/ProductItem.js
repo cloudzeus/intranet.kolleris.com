@@ -5,6 +5,11 @@ import { formatNumber } from '../../helpers/utils';
 
 const ProductItem = ({ product }) => {
     // console.log(product);
+    product = {
+        name: product.PRODUCTNAME_NAME,
+        price: product.PRICER,
+        id: product.MTRL,
+    };
 
     const { addProduct, cartItems, increase } = useContext(CartContext);
 
@@ -24,9 +29,9 @@ const ProductItem = ({ product }) => {
                 src={product.photo + '?v=' + product.id}
                 alt=""
             /> */}
-            <p>{product.PRODUCTNAME_NAME}</p>
+            <p>{product.name}</p>
             <h3 className="text-left">
-                {formatNumber(parseFloat(product.PRICER))}
+                {formatNumber(parseFloat(product.price))}
             </h3>
             <div className="text-right">
                 <Link to="/" className="btn btn-link btn-sm mr-2">
@@ -44,13 +49,7 @@ const ProductItem = ({ product }) => {
 
                 {!isInCart(product) && (
                     <button
-                        onClick={() =>
-                            addProduct({
-                                name: product.PRODUCTNAME_NAME,
-                                price: product.PRICER,
-                                id: product.MTRL,
-                            })
-                        }
+                        onClick={() => addProduct(product)}
                         className="btn btn-primary btn-sm"
                     >
                         Add to cart
