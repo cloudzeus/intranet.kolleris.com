@@ -13,7 +13,9 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <h3 className="d-inline text-white">Kolleris</h3>
-            <Link to="/">Store</Link>
+            <Link className="text-white" to="/">
+                Store
+            </Link>
             {/* <Link to="/about">About</Link> */}
             <Link to="/cart/1/show" className="text-white">
                 {' '}
