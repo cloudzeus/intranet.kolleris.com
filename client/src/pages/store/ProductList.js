@@ -14,18 +14,17 @@ export const ProductList = (props) => (
         filters={<ProductFilter context="form" />}
     >
         <Datagrid rowClick="edit">
-            <TextField
+            {/* <TextField
                 source="MTRL"
                 label="MTRL"
                 headerClassName="column-header "
-            />
+            /> */}
             <TextField
                 source="PRODUCTNAME_NAME"
                 label="PRODUCT NAME"
                 headerClassName="column-header "
             />
 
-            <AddToCart source="ADD TO CART" label="Cart" />
             <TextField
                 source="ERPCODE_CODE"
                 label="ERPCODE"
@@ -68,7 +67,7 @@ export const ProductList = (props) => (
             />
             <TextField
                 source="COMMERCIAL_CATEGORY_NAME"
-                label="COMMERCIAL CATEGORY NAME"
+                label="COMMERCIAL"
                 headerClassName="column-header "
             />
             <TextField
@@ -87,6 +86,7 @@ export const ProductList = (props) => (
                 headerClassName="column-header"
             />
             <PriceField source="PRICEW" label="PRICEW" />
+            <AddToCart source="ADD TO CART" label="Cart" />
         </Datagrid>
     </List>
 );

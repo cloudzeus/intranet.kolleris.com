@@ -32,7 +32,6 @@ const paginate = (value, size = 30, page = 1, query = '') => {
 
 exports.setValue = async (key, value, size, page, query) => {
     let dataString = JSON.stringify(value);
-    // console.log(dataString);
     await cache.set(key, dataString);
     return paginate(value, size, page, query);
 };
@@ -41,6 +40,7 @@ exports.getValue = async (key, size, page, query) => {
     try {
         let data = await cache.get(key);
         if (!data) return null;
+        console.log('data', data);
         data = JSON.parse(data);
         return paginate(data, size, page, query);
     } catch (error) {
