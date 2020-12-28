@@ -1,15 +1,13 @@
 const NodeCache = require('node-cache');
 
-const cache = new NodeCache({ stdTTL: 60 * 60 * 24 });
+const cache = new NodeCache({ stdTTL: 60 * 60 });
 
 const paginate = (value, size = 30, page = 1, query = '') => {
     size = parseInt(size);
     page = parseInt(page);
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
-    let data = value.slice(startIndex, endIndex);
-    data = data.map((product) => ({ ...product, id: product.MTRL }));
-    data = data.filter(
+    let data = value.filter(
         (data) =>
             new RegExp(query, 'gi').test(data.PRODUCTNAME_NAME) ||
             new RegExp(query, 'gi').test(data.MTRL) ||
@@ -27,19 +25,23 @@ const paginate = (value, size = 30, page = 1, query = '') => {
             new RegExp(query, 'gi').test(data.PRICER) ||
             new RegExp(query, 'gi').test(data.PRICEW)
     );
-    console.log(startIndex, endIndex);
+    data = data.slice(startIndex, endIndex);
+    data = data.map((product) => ({ ...product, id: product.MTRL }));
     return { data, size, page, total: value.length };
 };
 
 exports.setValue = async (key, value, size, page, query) => {
-    await cache.set(key, value);
+    let dataString = JSON.stringify(value);
+    // console.log(dataString);
+    await cache.set(key, dataString);
     return paginate(value, size, page, query);
 };
 
 exports.getValue = async (key, size, page, query) => {
     try {
-        const data = await cache.get(key);
+        let data = await cache.get(key);
         if (!data) return null;
+        data = JSON.parse(data);
         return paginate(data, size, page, query);
     } catch (error) {
         console.log('error', error);
