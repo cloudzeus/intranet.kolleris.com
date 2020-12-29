@@ -18,7 +18,7 @@ export const ProductList = (props) => {
             filters={<ProductFilter context="form" />}
             actions={<ProductsToolBar />}
         >
-            <Datagrid rowClick="show" hover>
+            <Datagrid hover>
                 {/* <TextField
                 source="MTRL"
                 label="MTRL"
