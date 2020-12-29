@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-    Admin,
-    Resource,
-    Layout,
-    ShowGuesser,
-    ListGuesser,
-    EditGuesser,
-} from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import { authProvider } from './authProvider';
-import Header from './components/shared/header';
 import Cart from './pages/cart/index';
 import Login from './pages/login/Login';
 
