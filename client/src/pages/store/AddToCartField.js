@@ -13,6 +13,8 @@ const AddToCart = ({ source, record = {} }) => {
 
     const { addProduct, cartItems, increase } = React.useContext(CartContext);
 
+    const currentItem = cartItems.find((item) => item.id == product.id);
+
     const isInCart = (product) => {
         return !!cartItems.find((item) => item.id === product.id);
     };
@@ -20,21 +22,24 @@ const AddToCart = ({ source, record = {} }) => {
     return (
         <div className="px-2">
             {isInCart(product) && (
-                <button
-                    onClick={() => increase(product)}
-                    className="btn btn-outline-primary btn-sm"
-                >
-                    Add more
-                </button>
+                <div onClick={() => increase(product)} className="btn  d-flex">
+                    <i className="fa fa-cart-plus fa-2x mr-2" />
+                    <span
+                        className="badge badge-danger justify-content-center align-items-center d-flex"
+                        style={{ width: 30, height: 30, borderRadius: 15 }}
+                    >
+                        {currentItem?.quantity}
+                    </span>
+                </div>
             )}
 
             {!isInCart(product) && (
-                <button
+                <div
                     onClick={() => addProduct(product)}
-                    className="btn btn-primary btn-sm"
+                    className="btn  d-flex"
                 >
-                    Add to cart
-                </button>
+                    <i className="fa fa-cart-plus fa-2x mr-2" />
+                </div>
             )}
         </div>
     );

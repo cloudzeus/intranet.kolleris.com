@@ -6,11 +6,15 @@ import * as serviceWorker from './serviceWorker';
 import './App.css';
 import { HelmetProvider } from 'react-helmet-async';
 import AuthContext from './contexts/AuthContext';
+import App from './App';
+import CartContextProvider from './contexts/CartContext';
 
 ReactDOM.render(
     <AuthContext>
         <HelmetProvider>
-            <Routes />
+            <CartContextProvider>
+                <App />
+            </CartContextProvider>
         </HelmetProvider>
     </AuthContext>,
     document.getElementById('root')

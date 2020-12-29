@@ -4,18 +4,20 @@ import FormField from '../../components/UI/Forms/FormField';
 import * as Yup from 'yup';
 import SubmitButton from '../../components/UI/Forms/SubmitButton';
 import { useApi } from '../../hooks/useApi';
-import { login } from '../../api/auth';
 import { Link, useHistory } from 'react-router-dom';
 import { authContext } from '../../contexts/AuthContext';
 import { loginProducts } from '../../api/products';
 import AuthStore from '../../api/authStore';
+import { useLogin } from 'react-admin';
 
 const loginSchema = Yup.object({
-    email: Yup.string().email().required().label('Email Address'),
+    username: Yup.string().email().required().label('Email Address'),
     password: Yup.string().required().label('Password'),
 });
 
 function Login() {
+    const login = useLogin();
+
     const { loading, error, request } = useApi(login);
     const history = useHistory();
 
@@ -45,12 +47,12 @@ function Login() {
                     <div className="card-body">
                         {error && <p className="text-danger">{error}</p>}
                         <Form
-                            initialValues={{ email: '', password: '' }}
+                            initialValues={{ username: '', password: '' }}
                             handleSubmit={handleSubmit}
                             validationSchema={loginSchema}
                         >
                             <FormField
-                                name="email"
+                                name="username"
                                 placeholder="Your email address"
                                 label="Email"
                             />

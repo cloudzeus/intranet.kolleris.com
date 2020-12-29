@@ -5,13 +5,13 @@ import { CartContext } from '../../contexts/CartContext';
 import { CartIcon } from '../icons';
 import styles from './header.module.scss';
 
-const Header = () => {
+const Header = (props) => {
     const { logOut, user } = useContext(authContext);
 
     const { itemCount } = useContext(CartContext);
 
     return (
-        <header className={styles.header}>
+        <header className={styles.header} {...props}>
             <h3 className="d-inline text-white">Kolleris</h3>
             <Link className="text-white" to="/">
                 Store
