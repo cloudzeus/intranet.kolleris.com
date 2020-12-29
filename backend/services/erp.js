@@ -35,6 +35,7 @@ exports.erpAuth = () => {
 };
 
 exports.getProducts = (credentials) => {
+    console.log('Cree', credentials);
     return apiClient
         .post('/JS/ecomm.basics/getPRODUCTS', credentials)
         .then((response) => {

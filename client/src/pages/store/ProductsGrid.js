@@ -1,5 +1,12 @@
 import React from 'react';
-import { Admin, Resource, Layout, ShowGuesser } from 'react-admin';
+import {
+    Admin,
+    Resource,
+    Layout,
+    ShowGuesser,
+    EditGuesser,
+    ListGuesser,
+} from 'react-admin';
 import Header from '../../components/shared/header';
 import Cart from '../cart/index';
 
@@ -14,7 +21,12 @@ const MyLayout = (props) => (
 const ProductsGrid = () => {
     return (
         <Admin layout={MyLayout} dataProvider={dataProvider}>
-            <Resource name="products" list={ProductList} show={ShowGuesser} />
+            <Resource
+                name="products"
+                list={ListGuesser}
+                show={ShowGuesser}
+                edit={EditGuesser}
+            />
             <Resource name="cart" show={Cart} />
         </Admin>
     );

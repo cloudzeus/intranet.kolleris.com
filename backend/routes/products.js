@@ -18,5 +18,13 @@ router.post('/', async (req, res) => {
     res.setHeader('X-Total-Count', products.total);
     return res.send(products);
 });
+router.post('/update', async (req, res) => {
+    const products = await getProducts(req.body);
+    if (!products) return res.status(500).send('Failed to update');
+    // products = await cache.setValue(CACHE_KEY, products, size, page, q);
+
+    // res.setHeader('X-Total-Count', products.total);
+    return res.send(products);
+});
 
 module.exports = router;

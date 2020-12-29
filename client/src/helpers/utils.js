@@ -1,7 +1,7 @@
 export const formatNumber = (number) => {
     number = parseFloat(number);
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('el-GR', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'EUR',
     }).format(number);
 };
