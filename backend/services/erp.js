@@ -40,6 +40,7 @@ exports.getProducts = (credentials) => {
         .then((response) => {
             if (!response.ok) {
                 console.log('Error', response.problem);
+                console.log(iconv.decode(response.data, 'windows-1253'));
                 return null;
             }
 
@@ -63,7 +64,6 @@ exports.checkout = (credentials) => {
 exports.printInvoice = (credentials) => {
     delete credentials.DATA;
     delete credentials.FORM;
-    console.log(credentials);
     return apiClient.post('/', credentials).then((response) => {
         if (!response.ok) {
             console.log('Error', response.problem);

@@ -14,7 +14,7 @@ export const authProvider = {
     checkAuth: async () => {
         return (await AuthStore.getClientId())
             ? Promise.resolve()
-            : Promise.resolve();
+            : Promise.reject({ status: 401 });
     },
     logout: async () => {
         await AuthStore.removeClientId();

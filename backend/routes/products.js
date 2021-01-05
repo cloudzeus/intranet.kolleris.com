@@ -36,8 +36,6 @@ router.post('/checkout', async (req, res) => {
         payload.locateinfo = 'FINDOC:FINCODE';
         let printResponse = await printInvoice(payload);
 
-        console.log(printResponse);
-
         if (printResponse && printResponse.success) {
             return res.send(printResponse);
         }

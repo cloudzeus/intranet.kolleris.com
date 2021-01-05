@@ -10,6 +10,8 @@ import App from './App';
 import CartContextProvider from './contexts/CartContext';
 import ProductsContextProvider from './contexts/ProductsContext';
 
+import { ToastContainer } from 'react-toastify';
+
 ReactDOM.render(
     <AuthContext>
         <HelmetProvider>
@@ -18,6 +20,7 @@ ReactDOM.render(
                     <App />
                 </CartContextProvider>
             </ProductsContextProvider>
+            <ToastContainer />
         </HelmetProvider>
     </AuthContext>,
     document.getElementById('root')

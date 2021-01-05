@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Form from '../../components/UI/Forms/Form';
 import FormField from '../../components/UI/Forms/FormField';
 import * as Yup from 'yup';
@@ -25,6 +27,7 @@ function Login() {
 
     const handleSubmit = async (values) => {
         const response = await request(values);
+        if (!response.ok) toast.warn('Incorrect username or password');
         if (response.ok) {
             await AuthStore.setClientId(response.data);
             setUser(response.data);
@@ -71,6 +74,7 @@ function Login() {
                     </div>
                 </div>
             </div>
+            {/* <ToastContainer /> */}
         </div>
     );
 }
