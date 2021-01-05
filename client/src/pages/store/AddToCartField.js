@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { CartContext } from '../../contexts/CartContext';
 
 const AddToCart = ({ source, record = {} }) => {
-    let product = record;
-
-    product = {
-        name: product.PRODUCTNAME_NAME,
-        price: product.PRICER,
-        id: product.MTRL,
+    const product = {
+        name: record.PRODUCTNAME_NAME,
+        price: record.PRICER,
+        id: record.MTRL,
+        raw: record,
     };
 
     const { addProduct, cartItems, increase } = React.useContext(CartContext);

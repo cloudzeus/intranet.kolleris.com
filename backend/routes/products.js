@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProducts } = require('../services/erp');
+const { getProducts, checkout, printInvoice } = require('../services/erp');
 const cache = require('../utils/cache');
 
 const CACHE_KEY = 'products-cache';
@@ -25,6 +25,24 @@ router.post('/update', async (req, res) => {
 
     // res.setHeader('X-Total-Count', products.total);
     return res.send(products);
+});
+
+router.post('/checkout', async (req, res) => {
+    const response = await checkout(req.body);
+    if (response && response.success) {
+        let payload = req.body;
+        payload.KEY = response.id;
+        payload.SERVICE = 'getData';
+        payload.locateinfo = 'FINDOC:FINCODE';
+        let printResponse = await printInvoice(payload);
+
+        console.log(printResponse);
+
+        if (printResponse && printResponse.success) {
+            return res.send(printResponse);
+        }
+    }
+    return res.sendStatus(500);
 });
 
 module.exports = router;

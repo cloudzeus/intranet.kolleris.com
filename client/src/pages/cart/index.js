@@ -1,13 +1,17 @@
-import React, { useContext } from 'react';
-import Layout from '../../components/Layout';
+import React, { useContext, useEffect, useState } from 'react';
 
 import CartProducts from './CartProducts';
 import { CartContext } from '../../contexts/CartContext';
 import { formatNumber } from '../../helpers/utils';
 import { Link } from 'react-router-dom';
 import { Show, SimpleShowLayout } from 'react-admin';
+import AuthStore from '../../api/authStore';
+import { checkout as checkoutApi } from '../../api/products';
+import { useApi } from '../../hooks/useApi';
+import PrintProducts from './PrintProducts';
 
 const Cart = (props) => {
+    const [invoiceItems, setInvoiceItems] = useState([]);
     const {
         total,
         cartItems,
@@ -17,7 +21,47 @@ const Cart = (props) => {
         handleCheckout,
     } = useContext(CartContext);
 
-    console.log('Cart');
+    useEffect(() => {
+        if (!checkout) setInvoiceItems(cartItems);
+        return () => {};
+    }, [cartItems]);
+
+    const { request, loading, error, data: invoice } = useApi(checkoutApi);
+
+    const checkoutProducts = async () => {
+        const client = await AuthStore.getClientId();
+
+        const payload = {
+            CLIENTID: client.clientID,
+            APPID: 1001,
+            SERVICE: 'SetData',
+            OBJECT: 'SALDOC',
+            KEY: '',
+            FORM: '',
+            DATA: {
+                SALDOC: [
+                    {
+                        SERIES: '7001',
+                        TRDR: '11971',
+                        PAYMENT: '1003',
+                    },
+                ],
+
+                ITELINES: cartItems.map((item, idx) => {
+                    return {
+                        ...item.raw,
+                        LINENUM: 9000002 + idx,
+                        QTY1: item.quantity,
+                        PRICE: parseFloat(item.raw.PRICER),
+                    };
+                }),
+                SRVLINES: [],
+            },
+        };
+
+        await request(payload);
+        handleCheckout();
+    };
 
     return (
         <Show {...props} title="Cart" description="This is the Cart page">
@@ -28,27 +72,33 @@ const Cart = (props) => {
                 </div>
 
                 <div className="row no-gutters justify-content-center">
-                    <div className="col-sm-9 p-3">
-                        {cartItems.length > 0 ? (
+                    {cartItems.length > 0 ? (
+                        <div className="col-sm-9 p-3">
                             <CartProducts />
-                        ) : (
-                            <div className="p-3 text-center text-muted">
-                                Your cart is empty
-                            </div>
-                        )}
+                        </div>
+                    ) : (
+                        <div className="p-3 text-center text-muted">
+                            Your cart is empty
+                        </div>
+                    )}
 
-                        {checkout && (
+                    {checkout && (
+                        <div className="col-sm-12 p-3">
+                            <PrintProducts
+                                products={invoiceItems}
+                                invoice={invoice}
+                            />
                             <div className="p-3 text-center text-success">
-                                <p>Checkout successfull</p>
+                                <p>Checkout successful</p>
                                 <Link
-                                    to="/"
+                                    to="/products"
                                     className="btn btn-outline-success btn-sm"
                                 >
                                     BUY MORE
                                 </Link>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                     {cartItems.length > 0 && (
                         <div className="col-sm-3 p-3">
                             <div className="card card-body">
@@ -63,9 +113,11 @@ const Cart = (props) => {
                                     <button
                                         type="button"
                                         className="btn btn-primary mb-2"
-                                        onClick={handleCheckout}
+                                        onClick={checkoutProducts}
                                     >
-                                        CHECKOUT
+                                        {loading
+                                            ? 'Please wait...'
+                                            : 'CHECKOUT'}
                                     </button>
                                     <button
                                         type="button"

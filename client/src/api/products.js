@@ -15,3 +15,6 @@ export const updateProduct = async (payload) => {
     clientData.key = payload.MTRL;
     return apiClient.post(`/products/update`, clientData);
 };
+export const checkout = async (payload) => {
+    return apiClient.post(`/products/checkout`, payload);
+};

@@ -1,86 +1,89 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { getProducts } from '../api/products';
-import { useApi } from '../hooks/useApi';
-import { dummyProducts } from '../services/dummy';
+import { Button, Card, Divider, Modal, Typography } from '@material-ui/core';
+import React, { createContext, useState } from 'react';
 export const ProductsContext = createContext();
 
-const PAGE_SIZE = 100;
-
 const ProductsContextProvider = ({ children }) => {
-    const { request, error, data, loading } = useApi(getProducts);
-    const [query, setQuery] = useState('');
-    const [page, setPage] = useState(1);
+    const [open, setOpen] = useState(false);
+    const [currentProductDetails, setCurrentProductDetails] = useState(null);
 
-    const goToPage = (pageNumber) => {
-        setPage(pageNumber);
-        request(page, PAGE_SIZE);
+    const handleSetCurrentProduct = (product) => {
+        setCurrentProductDetails(product);
+        setOpen(true);
     };
-
-    const previousPage = () => {
-        if (page == 1) return;
-        request(page - 1, PAGE_SIZE, query);
-        setPage(page - 1);
-    };
-    const nextPage = () => {
-        console.log('Fired');
-        // if (page * size <= data.total / size) return;
-        request(page + 1, PAGE_SIZE, query);
-        setPage(page + 1);
-    };
-
-    // useEffect(() => {
-    //     request(page, PAGE_SIZE, '');
-    // }, []);
-
-    const handleSearchSubmit = () => {
-        if (query.length === 0) return data || [];
-        setPage(1);
-        request(1, PAGE_SIZE, query);
-    };
-
-    const handleClearQuery = () => {
-        setQuery('');
-        setPage(1);
-        request(1, PAGE_SIZE, '');
-    };
-
-    if (loading || error || data?.length === 0)
-        return (
-            <div
-                style={{ height: '70vh' }}
-                className="row justify-content-center align-items-center"
-            >
-                <div className="col-md-6">
-                    <h3 className="text-center text-muted">
-                        {loading
-                            ? 'Please wait a moment...'
-                            : error
-                            ? ' An error occured will fetching products, Please try to refresh the page'
-                            : data?.total === 0
-                            ? 'Not products found'
-                            : ''}
-                    </h3>
-                </div>
-            </div>
-        );
 
     return (
         <ProductsContext.Provider
             value={{
-                products: data?.data || [],
-                total: data?.total || 1,
-                goToPage,
-                previousPage,
-                nextPage,
-                page,
-                numberOfPages: Math.ceil(data?.total / PAGE_SIZE),
-                query,
-                handleQueryChange: setQuery,
-                handleClearQuery,
-                handleSearchSubmit,
+                handleSetCurrentProduct,
             }}
         >
             {children}
+            <Modal
+                open={open}
+                onClose={() => {
+                    setOpen(false);
+                    setCurrentProductDetails(null);
+                }}
+                className="p-5  justify-content-center d-flex"
+                //   container={() => rootRef.current}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                <Card
+                    className="p-5"
+                    style={{ width: '60%', overflowY: 'scroll' }}
+                >
+                    <div className="d-flex justify-content-between">
+                        <Typography variant="h4">
+                            Product details #{currentProductDetails?.MTRL}
+                        </Typography>
+                        <Button
+                            variant="contained"
+                            color="default"
+                            onClick={() => {
+                                setOpen(false);
+                                setCurrentProductDetails(false);
+                            }}
+                        >
+                            Close
+                        </Button>
+                    </div>
+                    <Divider />
+                    <div className="mt-4">
+                        <h5>Product Name</h5>
+                        <p>{currentProductDetails?.PRODUCTNAME_NAME}</p>
+                        <h5>EAN CODE</h5>
+                        <p>{currentProductDetails?.EANCODE || 'N/A'}</p>
+                        <h5>MANUFACTURE CODE </h5>
+                        <p>{currentProductDetails?.MANUFACTURECODE || 'N/A'}</p>
+                        <h5>VALUE ADDED TAX</h5>
+                        <p>{currentProductDetails?.VAT || 'N/A'}</p>
+                        <h5>VATNAME</h5>
+                        <p>{currentProductDetails?.VATNAME || 'N/A'}</p>
+                        <h5>MTR UNIT 1</h5>
+                        <p>{currentProductDetails?.MTRUNIT1 || 'N/A'}</p>
+                        <h5>MTR UNIT 2</h5>
+                        <p>{currentProductDetails?.MTRUNIT2 || 'N/A'}</p>
+                        <h5>MTR UNIT3</h5>
+                        <p>{currentProductDetails?.MTRUNIT3 || 'N/A'}</p>
+                        <h5>MTR CATEGORY </h5>
+                        <p>{currentProductDetails?.MTRCATEGORY || 'N/A'}</p>
+                        <h5>MTR CATEGORY 1 </h5>
+                        <p>{currentProductDetails?.MTRCATEGORY_1 || 'N/A'}</p>
+                        <h5>COMMERCIAL CATEGORY NAME </h5>
+                        <p>
+                            {currentProductDetails?.COMMERCIAL_CATEGORY_NAME ||
+                                'N/A'}
+                        </p>
+                        <h5>MTR GROUP</h5>
+                        <p>{currentProductDetails?.MTRGROUP || 'N/A'}</p>
+                        <h5>PRICER</h5>
+                        <p>{currentProductDetails?.PRICER || 'N/A'}</p>
+                        <h5>PRICEW</h5>
+                        <p>{currentProductDetails?.PRICEW || 'N/A'}</p>
+                    </div>
+                </Card>
+            </Modal>
         </ProductsContext.Provider>
     );
 };
