@@ -21,8 +21,8 @@ const App = () => {
             <Resource
                 name="products"
                 list={ProductList}
-                show={ProductDetails}
-                edit={ProductEdit}
+                // show={ProductDetails}
+                // edit={ProductEdit}
             />
             <Resource name="cart" show={Cart} />
         </Admin>

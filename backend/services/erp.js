@@ -35,7 +35,6 @@ exports.erpAuth = () => {
 };
 
 exports.getProducts = (credentials) => {
-    console.log('Cree', credentials);
     return apiClient
         .post('/JS/ecomm.basics/getPRODUCTS', credentials)
         .then((response) => {
@@ -48,4 +47,31 @@ exports.getProducts = (credentials) => {
             let parsedResponseData = JSON.parse(text);
             return (response.data = parsedResponseData.data);
         });
+};
+exports.checkout = (credentials) => {
+    return apiClient.post('/', credentials).then((response) => {
+        if (!response.ok) {
+            console.log('Error', response.problem);
+            return null;
+        }
+
+        let text = iconv.decode(response.data, 'windows-1253');
+        let parsedResponseData = JSON.parse(text);
+        return parsedResponseData;
+    });
+};
+exports.printInvoice = (credentials) => {
+    delete credentials.DATA;
+    delete credentials.FORM;
+    console.log(credentials);
+    return apiClient.post('/', credentials).then((response) => {
+        if (!response.ok) {
+            console.log('Error', response.problem);
+            return null;
+        }
+
+        let text = iconv.decode(response.data, 'windows-1253');
+        let parsedResponseData = JSON.parse(text);
+        return parsedResponseData;
+    });
 };
