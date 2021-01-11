@@ -13,13 +13,11 @@ const PrintProducts = ({ products, invoice }) => {
                 )}
                 content={() => contentRef.current}
             />
-            <table class="table table-bordered" ref={contentRef}>
+<div ref={contentRef} >
+<h2 className="text-center">{invoice?.caption}</h2>
+            <table class="table table-bordered" >
                 <thead>
-                    <tr>
-                        <th colSpan={4} scope="col">
-                            Caption : {invoice?.caption}
-                        </th>
-                    </tr>
+                    
                     <tr>
                         <th scope="col">EAN CODE</th>
                         <th scope="col">PRODUCT NAME</th>
@@ -42,6 +40,7 @@ const PrintProducts = ({ products, invoice }) => {
                     })}
                 </tbody>
             </table>
+</div>
         </div>
     );
 };
