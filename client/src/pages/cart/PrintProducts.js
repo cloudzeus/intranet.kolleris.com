@@ -13,8 +13,8 @@ const PrintProducts = ({ products, invoice }) => {
                 )}
                 content={() => contentRef.current}
             />
-            <div ref={contentRef}>
-                <h2 className="text-center">{invoice?.caption}</h2>
+            <div ref={contentRef} style={{ width: 280 }}>
+                <h2 className=" ml-4 mt-4">{invoice?.caption}</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
