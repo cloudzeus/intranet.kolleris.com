@@ -13,7 +13,7 @@ export const ProductList = (props) => {
     return (
         <List
             {...props}
-            title="KOlleris - store"
+            title="Kolleris - store"
             empty={<EmptyProducts />}
             filters={<ProductFilter context="form" />}
             actions={<ProductsToolBar />}

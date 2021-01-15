@@ -3,12 +3,7 @@ import { Filter, TextInput } from 'react-admin';
 
 const ProductFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search" source="q" alwaysOn />
-        <TextInput
-            label="Title"
-            source="PRODUCTNAME_NAME"
-            defaultValue="Hello, World!"
-        />
+        <TextInput className="ml-3" label="Search" source="q" alwaysOn />
     </Filter>
 );
 
