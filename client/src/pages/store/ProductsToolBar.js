@@ -10,11 +10,6 @@ const ProductsToolBar = (props) => {
 
     return (
         <TopToolbar {...props}>
-            <Link to="/products" className="mr-4">
-                <h4>
-                    <i className="fa fa-shopping-basket" /> Products
-                </h4>
-            </Link>
             <Link to="/cart/1/show" className="">
                 <Badge badgeContent={itemCount} color="error">
                     <h4>

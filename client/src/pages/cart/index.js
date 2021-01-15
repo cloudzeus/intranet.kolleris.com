@@ -70,7 +70,13 @@ const Cart = (props) => {
                     <h1>Cart</h1>
                     <p>This is the Cart Page.</p>
                 </div>
-
+                <div className="row">
+                    <Link to="/products" className="btn ml-4 btn-outline-dark">
+                        {/* <h4> */}
+                        <i className="fa fa-shopping-basket" /> Back to products
+                        {/* </h4> */}
+                    </Link>
+                </div>
                 <div className="row no-gutters justify-content-center">
                     {cartItems.length > 0 ? (
                         <div className="col-sm-9 p-3">

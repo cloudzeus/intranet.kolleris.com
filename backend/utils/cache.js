@@ -7,23 +7,27 @@ const paginate = (value, size = 30, page = 1, query = '') => {
     page = parseInt(page);
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
-    let data = value.filter(
-        (data) =>
-            new RegExp(query, 'gi').test(data.PRODUCTNAME_NAME) ||
-            new RegExp(query, 'gi').test(data.MTRL) ||
-            new RegExp(query, 'gi').test(data.ERPCODE_CODE) ||
-            new RegExp(query, 'gi').test(data.EANCODE) ||
-            new RegExp(query, 'gi').test(data.MANUFACTURECODE) ||
-            new RegExp(query, 'gi').test(data.VAT) ||
-            new RegExp(query, 'gi').test(data.VATNAME) ||
-            new RegExp(query, 'gi').test(data.MTRUNIT1) ||
-            new RegExp(query, 'gi').test(data.MTRUNIT3) ||
-            new RegExp(query, 'gi').test(data.MTRCATEGORY) ||
-            new RegExp(query, 'gi').test(data.COMMERCIAL_CATEGORY_NAME) ||
-            new RegExp(query, 'gi').test(data.MTRGROUP) ||
-            new RegExp(query, 'gi').test(data.MTRCATEGORY_1) ||
-            new RegExp(query, 'gi').test(data.PRICER) ||
-            new RegExp(query, 'gi').test(data.PRICEW)
+    let data = value.filter((data) =>
+        query
+            .split(' ')
+            .every(
+                (q) =>
+                    new RegExp(q, 'gi').test(data.PRODUCTNAME_NAME) ||
+                    new RegExp(q, 'gi').test(data.MTRL) ||
+                    new RegExp(q, 'gi').test(data.ERPCODE_CODE) ||
+                    new RegExp(q, 'gi').test(data.EANCODE) ||
+                    new RegExp(q, 'gi').test(data.MANUFACTURECODE) ||
+                    new RegExp(q, 'gi').test(data.VAT) ||
+                    new RegExp(q, 'gi').test(data.VATNAME) ||
+                    new RegExp(q, 'gi').test(data.MTRUNIT1) ||
+                    new RegExp(q, 'gi').test(data.MTRUNIT3) ||
+                    new RegExp(q, 'gi').test(data.MTRCATEGORY) ||
+                    new RegExp(q, 'gi').test(data.COMMERCIAL_CATEGORY_NAME) ||
+                    new RegExp(q, 'gi').test(data.MTRGROUP) ||
+                    new RegExp(q, 'gi').test(data.MTRCATEGORY_1) ||
+                    new RegExp(q, 'gi').test(data.PRICER) ||
+                    new RegExp(q, 'gi').test(data.PRICEW)
+            )
     );
     data = data.slice(startIndex, endIndex);
     data = data.map((product) => ({ ...product, id: product.MTRL }));
